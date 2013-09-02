@@ -1,0 +1,111 @@
+<!DOCTYPE html> 
+<html> 
+	<head> 
+	<title>Smart Mall</title> 
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	
+	<link rel="stylesheet" href="../css/jquery.mobile-1.3.1.min.css" />
+	<script src="../js/jquery.js"></script>
+	<script src="../js/jquery.mobile-1.3.1.min.js"></script>
+    <!--<script src="../js/cordova-2.7.0.js"></script>-->
+	
+	<link rel="stylesheet" href="../css/all.css" />
+</head> 
+<body> 
+
+<!-- Shops -->
+<div data-role="page" data-theme="b" id="single_r_notification">
+
+	<div data-role="header" data-theme="b">
+		<a href="r_menu.html" data-icon="back" class="ui-btn-left" data-transition="slide" data-direction="reverse">Back</a>
+		<h1>Notification</h1>
+	</div><!-- /header -->
+
+	<div data-role="content" id="content_container">	
+		
+		<table id="wrapper" class="main_menu">
+			<tr>
+				<td id="n_image"><img src="default_r.png" height="100" width="100"></td>
+			</tr>
+			<tr>
+				<td id="n_desc">No Description</td>
+			</tr>
+			<tr>
+				<td>Start Date: <span id="n_start">No Start Date</span></td>
+			</tr>
+			<tr>
+				<td>End Date: <span id="n_end">No End Date</span></td>
+			</tr>
+		</table>
+		<br/>
+				
+				<script>
+				try {
+						$(function() 
+						{
+							$('[data-role=page]').on('pagebeforeshow', function (event) 
+							{
+								$.mobile.loading('show');
+								
+								var shop_data = localStorage.getItem('2');
+								//console.log(shop_data);
+								
+								var Shop_No = $(shop_data).closest('[name=Shop_No]').val();
+								var Shop_Name = $(shop_data).closest('[name=Shop_Name]').val();
+								var Shop_Logo = $(shop_data).closest('[name=Shop_Logo]').val();
+								var User_ID = $(shop_data).closest('[name=User_ID]').val();
+								
+								var Notification_Name = $(shop_data).closest('[name=Notification_Name]').val();
+								var Notification_Details = $(shop_data).closest('[name=Notification_Details]').val();
+								var Notification_StartDate = $(shop_data).closest('[name=Notification_StartDate]').val();
+								var Notification_EndDate = $(shop_data).closest('[name=Notification_EndDate]').val();
+								
+								// Set image
+								var img = '';
+								
+								if (Notification_Details != '' && Notification_Details != undefined)
+								{
+									console.log(Notification_Details);
+									Notification_Details = Notification_Details.replace(".", "http://msaads.my.phpcloud.com/smart_mall");
+									var img = "<img src='"+Notification_Details+"' height='100' width='100'>";
+									console.log('Notification_Details');
+								}
+								else
+								{
+									var img = "<img src='"+Shop_Logo+"' height='100' width='100'>";
+								}
+								
+								$('#n_image').html(img);
+								
+								// Set Description
+								$('#n_desc').html(Notification_Name);
+								
+								// Set Start Date
+								$('#n_start').html(Notification_StartDate);
+								
+								// Set End Date
+								$('#n_end').html(Notification_EndDate);
+								
+								$.mobile.loading('hide');
+								return false; // important to stop back-fire event
+							});
+						});
+					} // try
+					catch (error) {
+						console.error("Your javascript has an error: " + error);
+					}
+				</script>
+			
+	</div><!-- /content -->
+	
+	<div data-role="footer" data-theme="b" data-position="fixed">
+		<h4></h4>
+	</div><!-- /footer -->
+
+</div><!-- /page -->
+
+</body>
+</html>

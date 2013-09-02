@@ -1,0 +1,128 @@
+<!DOCTYPE html> 
+<html> 
+	<head> 
+	<title>Smart Mall</title> 
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	
+	<link rel="stylesheet" href="../css/jquery.mobile-1.3.1.min.css" />
+	<script src="../js/jquery.js"></script>
+	<script src="../js/jquery.mobile-1.3.1.min.js"></script>
+    <script src="../js/cordova-2.7.0.js"></script>
+	
+	<link rel="stylesheet" href="../css/all.css" />
+</head> 
+<body> 
+
+<!-- Shops -->
+<div data-role="page" data-theme="b" id="cart">
+
+	<div data-role="header" data-theme="b">
+		<a href="store.html" data-icon="back" class="ui-btn-left" data-transition="slide" data-direction="reverse">Back</a>
+		<h1>Shopping Cart</h1>
+	</div><!-- /header -->
+
+	<div data-role="content" id="content_container">	
+		
+		<!--<div class="identity">
+			<span class="text1">Username: </span>asim.ali@nu.edu.pk
+		</div>
+		<br/>-->
+		
+		<table id="wrapper" class="r_menu apply_border check_out_tuples">
+			<tr>
+				<th>Product</th>
+				<th style="width:20%;">Qty</th>
+				<th style="width:20%;">Price</th>
+			</tr>
+			<!--<tr>
+				<td>Name</td>
+				<td><input class="qty" type="text" name="qty1" id="qty1" value="1"/></td>
+				<td id='p_price'>100</td>
+			</tr>
+			<tr>
+				<td>Name2</td>
+				<td><input class="qty" type="text" name="qty1" id="qty1" value="1"/></td>
+				<td id='p_price'>200</td>
+			</tr>
+			<tr>
+				<td>Name3</td>
+				<td><input class="qty" type="text" name="qty1" id="qty1" value="1"/></td>
+				<td id='p_price'>300</td>
+			</tr>-->
+		</table>
+		
+		<table id="wrapper" class="cart_total">
+			<tr>
+				<th>Total Amount</th>
+				<th style="width:20%;"></th>
+				<th style="width:20%;" id="total_price">500</th>
+			</tr>
+		</table>
+		
+		<table id="wrapper">
+			<tr>
+				<th><a href="forgot_pass.html" data-role="button" data-theme="e" data-transition="slide" class="ui-disabled">CheckOut</a></th>
+			</tr>
+		</table>
+		
+		<br/>
+				
+				<script>
+				try {
+						$(function() 
+						{
+							$('[data-role=page]').on('pagebeforeshow', function (event) 
+							{
+								$.mobile.loading('show');
+								
+								var cart_data = localStorage.getItem('1');
+								//console.log(shop_data);
+								
+								var Product_Name = $(cart_data).closest('[name=Product_Name]').val();
+								var Product_UnitPrice = $(cart_data).closest('[name=Product_UnitPrice]').val();
+								
+								var co =	"<tr>"+
+											"<td>"+Product_Name+"</td>"+
+											"<td><div class='ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-b'>"+
+											"<input class='qty ui-input-text ui-body-b' type='text' name='qty1' id='qty1' value='1'/>"+
+											"</div></td>"+
+											"<td class='p_price'>"+Product_UnitPrice+"</td>"
+											"</tr>";
+
+								var my_cart = localStorage.getItem("my_cart");
+								my_cart += co;
+								localStorage.setItem("my_cart", my_cart);
+								
+								$('.check_out_tuples').append(my_cart);
+								
+								var total_price = 0;
+								$('.p_price').each(function(index, element) {
+									var temp_price = $(element).html();
+									total_price = parseFloat(total_price) + parseFloat(temp_price);
+								});
+								//console.log(total_price);
+								$('#total_price').html(total_price);
+								
+								$.mobile.loading('hide');
+								return false; // important to stop back-fire event
+							});
+						});
+					} // try
+					catch (error) {
+						console.error("Your javascript has an error: " + error);
+					}
+				</script>
+			
+	</div><!-- /content -->
+	
+	<div data-role="footer" data-theme="b" data-position="fixed">
+		<h4></h4>
+	</div><!-- /footer -->
+
+</div><!-- /page -->
+
+</body>
+</html>

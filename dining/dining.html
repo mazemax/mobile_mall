@@ -1,0 +1,144 @@
+<!DOCTYPE html> 
+<html> 
+	<head> 
+	<title>Smart Mall</title> 
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	
+	<link rel="stylesheet" href="../css/jquery.mobile-1.3.1.min.css" />
+	<script src="../js/jquery.js"></script>
+	<script src="../js/jquery.mobile-1.3.1.min.js"></script>
+    <!--<script src="../js/cordova-2.7.0.js"></script>-->
+	
+	<link rel="stylesheet" href="../css/all.css" />
+</head> 
+<body> 
+
+<!-- Shops -->
+<div data-role="page" data-theme="b" id="dining">
+
+	<div data-role="header" data-theme="b">
+		<a href="../index.html" data-icon="home" class="ui-btn-left" data-transition="slide" data-direction="reverse">Home</a>
+		<h1>Dining</h1>
+	</div><!-- /header -->
+
+	<div data-role="content" id="content_container">	
+		
+		<div class="r_shops">
+		</div>
+		
+		<br/>
+				
+				<script>
+				try {
+						$(function() 
+						{
+							
+							$('[data-role=page]').on('pageremove', function (event) 
+							{
+								$(".r_shops").empty();
+								return false;
+							});
+							
+							$('[data-role=page]').on('pagebeforeshow', function (event) 
+							{
+								$.mobile.loading('show');
+								
+								var shop_url = 'http://msaads.my.phpcloud.com/smart_mall/index.php/api/shop_info/r_shops?format=jsonp';
+
+								$.ajax(
+								{
+									type:"GET",
+									url: shop_url,
+									crossDomain: true,
+									dataType: "jsonp",
+									contentType:"application/json",
+								})
+								.done(function(data, textStatus, jqXHR)
+								{ 
+									var counter = 1;
+									var length = data.length;
+									var whole_len = length % 2;
+									var table_html = '<table id="wrapper" class="main_menu">';
+									
+									$.each(data , function(i, val) 
+									{ 
+										var even = false;
+										if(counter % 2 === 0) even = true;
+										
+										//console.log(data[i]['Shop_No']); 
+										//console.log(data[i]['Shop_Name']);
+										//console.log(data[i]['Shop_Logo']);
+										//console.log(data[i]['User_ID']);
+										
+										var S_No = data[i]['Shop_No'];
+										var S_Name = data[i]['Shop_Name'];
+										var S_Logo = data[i]['Shop_Logo'];
+										var ID = data[i]['User_ID'];
+										S_Logo = S_Logo.replace(".", "http://msaads.my.phpcloud.com/smart_mall");
+										
+										if(!even) {table_html+='<tr>';}
+										
+										if(S_Logo === '')
+										{
+										table_html += "<td><a href='r_menu.html' data-transition='slide' onClick='var shop_data=$(this).html(); var data=1; localStorage.setItem(data, shop_data);'>"+
+															"<img src='default_r.png' alt='"+S_Name+"' height='100' width='100' />"+
+														  "<input type='hidden' name='Shop_No' value='"+S_No+"' />"+
+														  "<input type='hidden' name='Shop_Name' value='"+S_Name+"' />"+
+														  "<input type='hidden' name='Shop_Logo' value='default_r.png' />"+
+														  "<input type='hidden' name='User_ID' value='"+ID+"' />"+
+														  "</a>"+
+													  "</td>";
+										}
+										else
+										{
+										table_html += "<td><a href='r_menu.html' data-transition='slide' onClick='var shop_data=$(this).html(); var data=1; localStorage.setItem(data, shop_data);'>"+
+															"<img src='"+S_Logo+"' alt='"+S_Name+"' height='100' width='100'>"+
+															"<input type='hidden' name='Shop_No' value='"+S_No+"' />"+
+															"<input type='hidden' name='Shop_Name' value='"+S_Name+"' />"+
+															"<input type='hidden' name='Shop_Logo' value='"+S_Logo+"' />"+
+															"<input type='hidden' name='User_ID' value='"+ID+"' />"+
+														  "</a>"+
+													  "</td>";
+										}
+										
+										if((even) | (counter == length)) {table_html+='</tr>';}
+										counter++;
+									});	// each
+									
+									table_html += '</table>';
+									$(".r_shops").html(table_html);
+									$('.r_shops').trigger('updatelayout');
+								})
+								.fail(function(jqXHR, textStatus, errorThrown) 	
+								{
+									console.log(errorThrown);	
+									//console.log("Fail: "); console.log(data);
+								})
+								.always(function()
+								{ 	
+									// Always run this
+								});
+								
+								$.mobile.loading('hide');
+								return false; // important to stop back-fire event
+							});
+						});
+					} // try
+					catch (error) {
+						console.error("Your javascript has an error: " + error);
+					}
+				</script>
+			
+	</div><!-- /content -->
+	
+	<div data-role="footer" data-theme="b" data-position="fixed">
+		<h4></h4>
+	</div><!-- /footer -->
+
+</div><!-- /page -->
+
+</body>
+</html>

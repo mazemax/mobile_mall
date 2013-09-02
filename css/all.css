@@ -1,0 +1,233 @@
+	h1, h2{
+		text-align:center;
+	}
+	.center {
+		margin:auto; 
+		width:50%;
+	}
+	#wrapper {
+	   height:100%;
+	   width: 100%;
+	   margin: 0;
+	   padding: 0;
+	   border: 0;
+	}
+	#wrapper td {
+	   vertical-align: middle;
+	   text-align: center;
+	}
+	.error {
+		color: #D8000C;
+		background-color: #FFBABA;
+		/*background-image: url('error.png');*/
+		border: 1px solid;
+		margin: 10px 0px;
+		padding:15px 10px 15px 10px;
+		background-repeat: no-repeat;
+		background-position: 10px center;
+	}
+	.success {
+		color: #4F8A10;
+		background-color: #DFF2BF;
+		/*background-image:url('success.png');*/
+		border: 1px solid;
+		margin: 10px 0px;
+		padding:15px 10px 15px 10px;
+		background-repeat: no-repeat;
+		background-position: 10px center;
+	}
+	
+	table.apply_border, table.apply_border th, table.apply_border td
+	{
+		border-collapse: collapse;
+		border: 1px solid black;
+		/*padding: 5px;*/
+	}
+	
+	table.main_menu, table.main_menu td
+	{
+		/*padding:3px 3px;*/
+	}
+	
+	.main_item
+	{
+		/*width:90px;*/
+		height:100px;
+		font-family:"Helvetica Narrow","Arial Narrow",Tahoma,Arial,Helvetica,sans-serif;
+	}
+	
+	.main_item .ui-btn-inner
+	{
+		font-size:12px;
+		padding-top:35px;
+		white-space:normal;
+	}
+	
+	.main_item .ui-btn
+	{
+		margin:0px;
+	}
+	
+	#my-navbar .ui-block-a, #my-navbar .ui-block-b
+	{
+		width:14.28571428571429% !important;
+	}
+	
+	table.r_menu th
+	{
+		text-align:center; 
+		background-color: #F2F2F2;
+		height:10px;
+	}
+	
+	table.r_menu td
+	{
+		text-align:center; 
+		font-size: 14px;
+	}
+	
+	table.r_menu input
+	{
+		text-align:center;
+		font-size: 14px;
+	}
+	
+	.identity
+	{
+		text-align:center;
+	}
+	
+	.identity  .text1
+	{
+		font-weight: bold;
+	}
+	
+	table.cart_total th
+	{
+		text-align:center; 
+		height:10px;
+		font-weight: bold;
+	}
+	
+	/* Resturant */
+	.content_div {
+		display: none;
+	}
+	.content_div:first-child {
+		display: block;
+	}
+	
+	/* Swipe */
+	.swiper-v, .swiper-v .swiper-slide, .swiper-free, .swiper-free .swiper-slide, .swiper-dynamic, .swiper-dynamic .swiper-slide {
+		width: 640px;
+		height: 250px;
+		color: #fff;
+	}
+
+	.swiper-v, .swiper-free, .swiper-dynamic {
+		box-shadow: 0px -1px 4px rgba(0,0,0,0.5);
+		text-align: center;
+	}
+	.swiper-v h2, .swiper-free h2, .swiper-dynamic h2 {
+		font-style: italic;
+		font-size: 42px;
+		margin-top: 80px;
+		margin-bottom: 0;
+		line-height: 45px;
+	}
+	.swiper-v p,.swiper-free p, .swiper-dynamic p {
+		font-style: italic;
+		font-size: 25px;
+	}
+	.swiper-v,.swiper-free, .swiper-dynamic {
+		margin-bottom: 30px;
+	}
+	/* Pagination V*/
+	.pagination-v .swiper-pagination-switch, .pagination-free .swiper-pagination-switch {
+		display: block;
+		width: 8px;
+		height: 8px;
+		border-radius: 8px;
+		background: #555;
+		margin: 0 0px 5px;
+		opacity: 0.8;
+		border: 1px solid #fff;
+	}
+	.pagination-v .swiper-active-switch, .pagination-free .swiper-active-switch {
+		background: #fff;
+	}
+	.pagination-v, .pagination-free  {
+		position: absolute;
+		z-index: 20;
+		left: 10px;
+		top: 10px;
+	}
+	.pagination-free  {
+		width: 140px;
+		left: 10px;
+		top: 230px;
+	}
+	.pagination-free .swiper-pagination-switch {
+		display: block;
+		margin: 0 5px;
+		float: left;
+	}
+	.red-slide {
+		background: #ca4040;
+	}
+	.blue-slide {
+		background: #4390ee;
+	}
+	.orange-slide {
+		background: #ff8604;
+	}
+	.green-slide {
+		background: #49a430;
+	}
+	.pink-slide {
+		background: #973e76;
+	}
+	/* Swipe */
+	
+	.swiper-main {
+		width: 640px;
+		height: 300px;
+		position: relative;
+	}
+	.swiper1, .swiper1 .swiper-slide{
+		width: 640px;
+		height: 300px;
+	}
+	.pagination1 {
+		text-align: center;
+		margin-top: 5px;
+	}
+	/* Pagination */
+	.pagination1 .swiper-pagination-switch {
+		display: inline-block;
+		width: 10px;
+		height: 10px;
+		border-radius: 10px;
+		background: #999;
+		box-shadow: 0px 1px 2px #555 inset;
+		margin: 0 3px;
+		cursor: pointer;
+	}
+	.pagination1 .swiper-active-switch {
+		background: #fff;2f9933
+	}
+	
+	my_table
+	{
+		width:300px; 
+		border-collapse:collapse;
+		/*border:1px solid black;*/
+	}
+	
+	.image_size
+	{
+		max-width:300px; 
+		max-height:300px;
+		width:300px; 
+		height:300px;
+	}

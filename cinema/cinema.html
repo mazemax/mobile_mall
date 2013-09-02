@@ -1,0 +1,271 @@
+<!DOCTYPE html> 
+<html> 
+	<head> 
+	<title>Smart Mall</title> 
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	
+	<link rel="stylesheet" href="../css/jquery.mobile-1.3.1.min.css" />
+	<script src="../js/jquery.js"></script>
+	<script src="../js/jquery.mobile-1.3.1.min.js"></script>
+    <!--<script src="../js/cordova-2.7.0.js"></script>-->
+	
+	<link rel="stylesheet" href="../css/all.css" />
+</head> 
+<body> 
+
+<!-- Shops -->
+<div data-role="page" data-theme="b" id="cinema">
+
+	<div data-role="header" data-theme="b">
+		<a href="../index.html" data-icon="home" class="ui-btn-left" data-transition="slide" data-direction="reverse">Home</a>
+		<h1>Cinema</h1>
+		
+		<div id="my-navbar" data-role="navbar">
+			<ul>
+				<li><a href="#" data-href="c_tab1" class="ui-btn-active">M</a></li>
+				<li><a href="#" data-href="c_tab2">T</a></li>
+				<li><a href="#" data-href="c_tab3">W</a></li>
+				<li><a href="#" data-href="c_tab4">Th</a></li>
+				<li><a href="#" data-href="c_tab5">F</a></li>
+				<li><a href="#" data-href="c_tab6">Sa</a></li>
+				<li><a href="#" data-href="c_tab7">Su</a></li>
+			</ul>
+		</div><!-- /navbar -->
+		
+	</div><!-- /header -->
+
+	<div data-role="content" id="content_container">	
+		
+		<div id="c_tab1" class="content_div">
+			<ul data-role="listview" data-inset="true" data-filter="false" class="my_main_ul" id="cinema_tuples1">
+			</ul>
+		</div>
+		
+		<div id="c_tab2" class="content_div">
+			<ul data-role="listview" data-inset="true" data-filter="false" class="my_main_ul" id="cinema_tuples2">
+			</ul>
+		</div>
+		
+		<div id="c_tab3" class="content_div">
+			<ul data-role="listview" data-inset="true" data-filter="false" class="my_main_ul" id="cinema_tuples3">
+			</ul>
+		</div>
+		
+		<div id="c_tab4" class="content_div">
+			<ul data-role="listview" data-inset="true" data-filter="false" class="my_main_ul" id="cinema_tuples4">
+			</ul>
+		</div>
+		
+		<div id="c_tab5" class="content_div">
+			<ul data-role="listview" data-inset="true" data-filter="false" class="my_main_ul" id="cinema_tuples5">
+			</ul>
+		</div>
+		
+		<div id="c_tab6" class="content_div">
+			<ul data-role="listview" data-inset="true" data-filter="false" class="my_main_ul" id="cinema_tuples6">
+			</ul>
+		</div>
+		
+		<div id="c_tab7" class="content_div">
+			<ul data-role="listview" data-inset="true" data-filter="false" class="my_main_ul" id="cinema_tuples7">
+			</ul>
+		</div>
+		
+		
+		<br/>
+				
+		<script>
+		try {
+				$(function() 
+				{
+					$('[data-role=page]').on('pagebeforecreate pagecreate pageinit', function (event) 
+					{
+						$("#my-navbar > ul").removeClass("ui-grid-a");
+					});
+				
+					$(document).delegate('.ui-navbar a', 'click', function () 
+					{
+						$(this).addClass('ui-btn-active');
+						$('.content_div').hide();
+						$('#' + $(this).attr('data-href')).show();
+					});
+					
+					$('[data-role=page]').on('pagebeforeshow', function (event) 
+					{
+						$.mobile.loading('show');
+						
+						var c_url = 'http://msaads.my.phpcloud.com/smart_mall/index.php/api/cinema_data/cinemas_data?format=jsonp';
+						
+						$.ajax(
+						{
+							type:"GET",
+							url: c_url,
+							crossDomain: true,
+							dataType: "jsonp",
+							contentType:"application/json",
+						})
+						.done(function(data, textStatus, jqXHR)
+						{
+							var Monday = '';
+							var Tuesday = '';
+							var Wednesday = '';
+							var Thursday = '';
+							var Friday = '';
+							var Saturday = '';
+							var Sunday = '';
+							
+							$.each(data , function(i, val) 
+							{ 
+								var date = new Date(data[i]['Movie_ShowDate']);
+								var day = date.getDay();
+								//console.log(day);
+								
+								if(day == 1)		
+								{
+									Monday+="<li><a href='single_movie.html' data-transition='slide' onClick='var shop_data=$(this).html(); var data=1; localStorage.setItem(data, shop_data);'>"+
+									"<span>"+data[i]['Movie_Name']+"</span>"+
+								"<input type='hidden' name='Movie_ID' value='"+data[i]['Movie_ID']+"' />"+
+								"<input type='hidden' name='Movie_Name' value='"+data[i]['Movie_Name']+"' />"+
+								"<input type='hidden' name='Movie_TicketPrice' value='"+data[i]['Movie_TicketPrice']+"' />"+
+								"<input type='hidden' name='Movie_ShowDate' value='"+data[i]['Movie_ShowDate']+"' />"+
+								"<input type='hidden' name='Movie_ShowTime' value='"+data[i]['Movie_ShowTime']+"' />"+
+								"<input type='hidden' name='Movie_Format' value='"+data[i]['Movie_Format']+"' />"+
+								"<input type='hidden' name='Movie_CinemaHall' value='"+data[i]['Movie_CinemaHall']+"' />"+
+								"<input type='hidden' name='Movie_TrailerURL' value='"+data[i]['Movie_TrailerURL']+"' />"+
+										"</a></li>";
+								}
+								else if(day == 2)
+								{
+									Tuesday+="<li><a href='single_movie.html' data-transition='slide' onClick='var shop_data=$(this).html(); var data=1; localStorage.setItem(data, shop_data);'>"+
+									"<span>"+data[i]['Movie_Name']+"</span>"+
+								"<input type='hidden' name='Movie_ID' value='"+data[i]['Movie_ID']+"' />"+
+								"<input type='hidden' name='Movie_Name' value='"+data[i]['Movie_Name']+"' />"+
+								"<input type='hidden' name='Movie_TicketPrice' value='"+data[i]['Movie_TicketPrice']+"' />"+
+								"<input type='hidden' name='Movie_ShowDate' value='"+data[i]['Movie_ShowDate']+"' />"+
+								"<input type='hidden' name='Movie_ShowTime' value='"+data[i]['Movie_ShowTime']+"' />"+
+								"<input type='hidden' name='Movie_Format' value='"+data[i]['Movie_Format']+"' />"+
+								"<input type='hidden' name='Movie_CinemaHall' value='"+data[i]['Movie_CinemaHall']+"' />"+
+								"<input type='hidden' name='Movie_TrailerURL' value='"+data[i]['Movie_TrailerURL']+"' />"+
+										"</a></li>";
+								}
+								else if(day == 3)
+								{
+									Wednesday+="<li><a href='single_movie.html' data-transition='slide' onClick='var shop_data=$(this).html(); var data=1; localStorage.setItem(data, shop_data);'>"+
+									"<span>"+data[i]['Movie_Name']+"</span>"+
+								"<input type='hidden' name='Movie_ID' value='"+data[i]['Movie_ID']+"' />"+
+								"<input type='hidden' name='Movie_Name' value='"+data[i]['Movie_Name']+"' />"+
+								"<input type='hidden' name='Movie_TicketPrice' value='"+data[i]['Movie_TicketPrice']+"' />"+
+								"<input type='hidden' name='Movie_ShowDate' value='"+data[i]['Movie_ShowDate']+"' />"+
+								"<input type='hidden' name='Movie_ShowTime' value='"+data[i]['Movie_ShowTime']+"' />"+
+								"<input type='hidden' name='Movie_Format' value='"+data[i]['Movie_Format']+"' />"+
+								"<input type='hidden' name='Movie_CinemaHall' value='"+data[i]['Movie_CinemaHall']+"' />"+
+								"<input type='hidden' name='Movie_TrailerURL' value='"+data[i]['Movie_TrailerURL']+"' />"+
+										"</a></li>";
+								}
+								else if(day == 4)
+								{
+									Thursday+="<li><a href='single_movie.html' data-transition='slide' onClick='var shop_data=$(this).html(); var data=1; localStorage.setItem(data, shop_data);'>"+
+									"<span>"+data[i]['Movie_Name']+"</span>"+
+								"<input type='hidden' name='Movie_ID' value='"+data[i]['Movie_ID']+"' />"+
+								"<input type='hidden' name='Movie_Name' value='"+data[i]['Movie_Name']+"' />"+
+								"<input type='hidden' name='Movie_TicketPrice' value='"+data[i]['Movie_TicketPrice']+"' />"+
+								"<input type='hidden' name='Movie_ShowDate' value='"+data[i]['Movie_ShowDate']+"' />"+
+								"<input type='hidden' name='Movie_ShowTime' value='"+data[i]['Movie_ShowTime']+"' />"+
+								"<input type='hidden' name='Movie_Format' value='"+data[i]['Movie_Format']+"' />"+
+								"<input type='hidden' name='Movie_CinemaHall' value='"+data[i]['Movie_CinemaHall']+"' />"+
+								"<input type='hidden' name='Movie_TrailerURL' value='"+data[i]['Movie_TrailerURL']+"' />"+
+										"</a></li>";
+								}
+								else if(day == 5)
+								{
+									Friday+="<li><a href='single_movie.html' data-transition='slide' onClick='var shop_data=$(this).html(); var data=1; localStorage.setItem(data, shop_data);'>"+
+									"<span>"+data[i]['Movie_Name']+"</span>"+
+								"<input type='hidden' name='Movie_ID' value='"+data[i]['Movie_ID']+"' />"+
+								"<input type='hidden' name='Movie_Name' value='"+data[i]['Movie_Name']+"' />"+
+								"<input type='hidden' name='Movie_TicketPrice' value='"+data[i]['Movie_TicketPrice']+"' />"+
+								"<input type='hidden' name='Movie_ShowDate' value='"+data[i]['Movie_ShowDate']+"' />"+
+								"<input type='hidden' name='Movie_ShowTime' value='"+data[i]['Movie_ShowTime']+"' />"+
+								"<input type='hidden' name='Movie_Format' value='"+data[i]['Movie_Format']+"' />"+
+								"<input type='hidden' name='Movie_CinemaHall' value='"+data[i]['Movie_CinemaHall']+"' />"+
+								"<input type='hidden' name='Movie_TrailerURL' value='"+data[i]['Movie_TrailerURL']+"' />"+
+										"</a></li>";
+								}
+								else if(day == 6)
+								{
+									Saturday+="<li><a href='single_movie.html' data-transition='slide' onClick='var shop_data=$(this).html(); var data=1; localStorage.setItem(data, shop_data);'>"+
+									"<span>"+data[i]['Movie_Name']+"</span>"+
+								"<input type='hidden' name='Movie_ID' value='"+data[i]['Movie_ID']+"' />"+
+								"<input type='hidden' name='Movie_Name' value='"+data[i]['Movie_Name']+"' />"+
+								"<input type='hidden' name='Movie_TicketPrice' value='"+data[i]['Movie_TicketPrice']+"' />"+
+								"<input type='hidden' name='Movie_ShowDate' value='"+data[i]['Movie_ShowDate']+"' />"+
+								"<input type='hidden' name='Movie_ShowTime' value='"+data[i]['Movie_ShowTime']+"' />"+
+								"<input type='hidden' name='Movie_Format' value='"+data[i]['Movie_Format']+"' />"+
+								"<input type='hidden' name='Movie_CinemaHall' value='"+data[i]['Movie_CinemaHall']+"' />"+
+								"<input type='hidden' name='Movie_TrailerURL' value='"+data[i]['Movie_TrailerURL']+"' />"+
+										"</a></li>";
+								}
+								else if(day == 0)
+								{
+									Sunday+="<li><a href='single_movie.html' data-transition='slide' onClick='var shop_data=$(this).html(); var data=1; localStorage.setItem(data, shop_data);'>"+
+									"<span>"+data[i]['Movie_Name']+"</span>"+
+								"<input type='hidden' name='Movie_ID' value='"+data[i]['Movie_ID']+"' />"+
+								"<input type='hidden' name='Movie_Name' value='"+data[i]['Movie_Name']+"' />"+
+								"<input type='hidden' name='Movie_TicketPrice' value='"+data[i]['Movie_TicketPrice']+"' />"+
+								"<input type='hidden' name='Movie_ShowDate' value='"+data[i]['Movie_ShowDate']+"' />"+
+								"<input type='hidden' name='Movie_ShowTime' value='"+data[i]['Movie_ShowTime']+"' />"+
+								"<input type='hidden' name='Movie_Format' value='"+data[i]['Movie_Format']+"' />"+
+								"<input type='hidden' name='Movie_CinemaHall' value='"+data[i]['Movie_CinemaHall']+"' />"+
+								"<input type='hidden' name='Movie_TrailerURL' value='"+data[i]['Movie_TrailerURL']+"' />"+
+										"</a></li>";
+								}
+							});
+							
+							$('#cinema_tuples1').html(Monday);	// Monday
+							$('#cinema_tuples2').html(Tuesday);	// Tuesday
+							$('#cinema_tuples3').html(Wednesday);	// Wednesday
+							$('#cinema_tuples4').html(Thursday);	// Thursday
+							$('#cinema_tuples5').html(Friday);	// Friday
+							$('#cinema_tuples6').html(Saturday);	// Saturday
+							$('#cinema_tuples7').html(Sunday);	// Sunday
+							
+						})
+						.fail(function(jqXHR, textStatus, errorThrown) 	
+						{
+							console.log(errorThrown);	
+							//console.log("Fail: "); console.log(data);
+						})
+						.always(function()
+						{ 
+							$('#cinema_tuples1').listview("refresh");
+							$('#cinema_tuples2').listview("refresh");
+							$('#cinema_tuples3').listview("refresh");
+							$('#cinema_tuples4').listview("refresh");
+							$('#cinema_tuples5').listview("refresh");
+							$('#cinema_tuples6').listview("refresh");
+							$('#cinema_tuples7').listview("refresh");
+						});
+						
+						$.mobile.loading('hide');
+						return false; // important to stop back-fire event
+					});
+					
+				});
+			} // try
+			catch (error) {
+				console.error("Your javascript has an error: " + error);
+			}
+		</script>
+			
+	</div><!-- /content -->
+	
+	<div data-role="footer" data-theme="b" data-position="fixed">
+		<h4></h4>
+	</div><!-- /footer -->
+
+</div><!-- /page -->
+
+</body>
+</html>
